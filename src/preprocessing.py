@@ -2,12 +2,12 @@ import pandas as pd
 
 
 def preprocess_data(df):
-    """
-    Realiza limpieza y preprocesamiento básico del dataset.
-    """
 
-    # Copia para evitar modificar original
     df = df.copy()
+
+    # Aplanar MultiIndex
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(1)
 
     # Convertir fecha
     df["Date"] = pd.to_datetime(df["Date"])
